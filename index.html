@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Viraat — Film Director, Screenwriter & World Builder based in Bengaluru, India. KGF Chapter 2 production credit. Currently directing a Telugu feature film.">
+<title>VIRAAT — Film Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --black:   #090806;
+  --ink:     #111009;
+  --ink2:    #181512;
+  --ink3:    #1f1b17;
+  --bronze:  #c9a45c;
+  --bronze2: #a07c38;
+  --crimson: #7a1f1f;
+  --cold:    #4a6880;
+  --paper:   #e6dfd3;
+  --paper2:  #c4bbae;
+  --muted:   #7a736a;
+  --display: 'Bodoni Moda', Georgia, serif;
+  --sans:    'Inter', system-ui, sans-serif;
+}
+
+/* ─────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--black);
+  color: var(--paper);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ─────────────────────────────────────────
+   FILM GRAIN — the cinematic signature
+   SVG turbulence, 0.035 opacity, almost
+   invisible but the eye feels it
+───────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  animation: grainShift 0.15s steps(1) infinite;
+}
+@keyframes grainShift {
+  0%   { transform: translate(0,0); }
+  20%  { transform: translate(-2%,-3%); }
+  40%  { transform: translate(3%,1%); }
+  60%  { transform: translate(-1%,4%); }
+  80%  { transform: translate(2%,-2%); }
+  100% { transform: translate(0,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+}
+
+/* ─────────────────────────────────────────
+   CINEMATIC ATMOSPHERE LAYER
+   global vignette + slow light drift, sits
+   above content but below grain. This is the
+   "lens" the whole site is viewed through.
+───────────────────────────────────────── */
+.lens {
+  position: fixed; inset: 0; z-index: 150;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 50%, transparent 55%, rgba(0,0,0,.35) 100%),
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201,164,92,.025), transparent 60%);
+  mix-blend-mode: multiply;
+}
+.lens::before {
+  /* slow-drifting volumetric light bloom */
+  content: ""; position: absolute; inset: -20%;
+  background: radial-gradient(ellipse 50% 40% at 30% 30%, rgba(201,164,92,.05), transparent 70%);
+  animation: lightDrift 24s ease-in-out infinite alternate;
+}
+@keyframes lightDrift {
+  0%   { transform: translate(0,0) scale(1); opacity: .6; }
+  50%  { transform: translate(20vw,10vh) scale(1.2); opacity: 1; }
+  100% { transform: translate(-10vw,20vh) scale(1.1); opacity: .7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lens::before { animation: none; }
+}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px clamp(20px,4.5vw,60px);
+  transition: background .6s ease, padding .5s ease, backdrop-filter .6s;
+}
+.nav.solid {
+  background: rgba(9,8,6,.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px clamp(20px,4.5vw,60px);
+  border-bottom: 1px solid rgba(201,164,92,.08);
+}
+.nav__brand {
+  font-family: var(--display);
+  font-size: 18px; font-weight: 500;
+  letter-spacing: .22em; color: var(--paper);
+}
+.nav__links { display: flex; gap: clamp(18px,2.4vw,38px); align-items: center; }
+.nav__links a {
+  font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--paper2);
+  transition: color .3s;
+}
+.nav__links a:hover { color: var(--bronze); }
+.nav__imdb {
+  display: flex; align-items: center; gap: 6px;
+  background: #F5C518; color: #000;
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: .06em; padding: 4px 10px; border-radius: 2px;
+  transition: opacity .3s;
+}
+.nav__imdb:hover { opacity: .85; }
+.nav__ig {
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--paper2); transition: color .3s, transform .3s;
+}
+.nav__ig:hover { color: var(--bronze); transform: translateY(-1px); }
+@media (max-width: 720px) { .nav__links { display: none; } }
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   HERO — multi-layer cinematic parallax
+   3 layers move at different depths; the
+   portrait has a slow operator-breath push-in
+───────────────────────────────────────── */
+.hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; align-items: center;
+  text-align: center; overflow: hidden;
+  background: #060504;
+}
+.hero__layer { position: absolute; inset: 0; will-change: transform; }
+/* L1 — far background: blurred, darkest, moves least */
+.hero__bgfar {
+  background: url('assets/hero-portrait.jpg') center 18% / cover no-repeat;
+  filter: brightness(.4) saturate(.7) blur(8px);
+  transform: scale(1.25);
+}
+/* L2 — the portrait itself: the centerpiece, slow breathing push-in */
+.hero__portrait {
+  background: url('assets/hero-portrait.jpg') center 20% / cover no-repeat;
+  transform: scale(1.08);
+  animation: camBreath 20s ease-in-out infinite alternate;
+}
+@keyframes camBreath {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  50%  { transform: scale(1.13) translate(-0.6%, -0.8%); }
+  100% { transform: scale(1.1) translate(0.4%, -1.4%); }
+}
+/* tonal grade over the portrait — pulls the bright set photo into our world */
+.hero__grade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,5,4,.5) 0%, rgba(6,5,4,0) 22%, rgba(6,5,4,0) 45%, rgba(6,5,4,.97) 100%),
+    radial-gradient(ellipse 90% 70% at 50% 35%, transparent 50%, rgba(6,5,4,.5) 100%);
+}
+/* warm key-light wash to unify the daylight set shot with the dark site */
+.hero__grade::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(122,31,31,.06), transparent 40%, rgba(201,164,92,.05));
+  mix-blend-mode: overlay;
+}
+/* L3 — foreground haze drifting across, closest layer */
+.hero__haze {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 75%, rgba(20,16,12,.5), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 85%, rgba(20,16,12,.4), transparent 60%);
+  animation: hazeDrift 16s ease-in-out infinite alternate;
+}
+@keyframes hazeDrift {
+  from { transform: translateX(-3%); opacity: .8; }
+  to   { transform: translateX(4%); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__portrait, .hero__haze { animation: none; }
+}
+.hero__content {
+  position: relative; z-index: 5; padding: 0 24px clamp(80px,14vh,140px);
+}
+.hero__kicker {
+  font-size: 10px; letter-spacing: .5em;
+  text-transform: uppercase; color: var(--bronze);
+  margin-bottom: 24px; opacity: 0;
+  animation: heroRise 1.4s .2s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero__name {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(72px, 16vw, 230px);
+  letter-spacing: .07em; line-height: .9;
+  text-shadow: 0 4px 60px rgba(0,0,0,.5), 0 0 90px rgba(201,164,92,.1);
+  opacity: 0;
+  animation: heroRise 1.8s .45s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero__line {
+  margin-top: 30px;
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(17px, 2.2vw, 26px);
+  opacity: 0; max-width: 640px; margin-inline: auto; line-height: 1.5;
+  text-shadow: 0 2px 30px rgba(0,0,0,.6);
+  animation: heroRise 1.5s 1.05s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero__sub {
+  margin-top: 18px; font-size: 10px;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--paper2); opacity: 0;
+  animation: heroRise 1.3s 1.45s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.scrollcue {
+  position: absolute; bottom: 34px; left: 50%;
+  transform: translateX(-50%); z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0; animation: heroRise 1s 2.1s forwards;
+}
+.scrollcue span { font-size: 9px; letter-spacing: .4em; text-transform: uppercase; color: var(--muted); }
+.scrollcue i {
+  display: block; width: 1px; height: 50px;
+  background: linear-gradient(var(--bronze), transparent);
+  animation: drip 2.6s ease-in-out infinite;
+}
+@keyframes drip {
+  0%,100% { opacity: .2; transform: scaleY(.6); }
+  50%      { opacity: 1;  transform: scaleY(1); }
+}
+
+/* ─────────────────────────────────────────
+   SHARED UTILITIES
+───────────────────────────────────────── */
+.eyebrow {
+  font-size: 10px; letter-spacing: .45em;
+  text-transform: uppercase; color: var(--bronze);
+  margin-bottom: 24px; display: block;
+}
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+/* ─────────────────────────────────────────
+   CINEMATIC REVEAL FAMILY
+   each section reveals with a distinct motion,
+   not a repeated fade. Driven by .in toggle.
+───────────────────────────────────────── */
+/* base — a bare .reveal rises (no flat fades anywhere) */
+.reveal { opacity: 0; transform: translateY(40px); filter: blur(2px); transition: opacity 1.1s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1), filter 1.1s ease; }
+.reveal.in { opacity: 1; transform: none; filter: none; }
+
+/* rise — slow upward drift (statement, general) */
+.r-rise { transform: translateY(44px); filter: blur(3px); }
+
+/* slide-up slow — credits stack upward */
+.r-stack { transform: translateY(60px) scale(.98); }
+
+/* sequential title-card — timeline rows snap in like title cards */
+.r-card { transform: translateY(30px); filter: blur(8px); transition-duration: 1.3s; }
+
+/* dark fade-through — production emerges from darkness */
+.r-dark { opacity: 0; filter: brightness(.2) blur(4px); transform: scale(1.02); }
+.r-dark.in { filter: brightness(1) blur(0); transform: scale(1); }
+
+/* masked wipe — images reveal through a vertical clip */
+.r-wipe { clip-path: inset(0 0 100% 0); opacity: 1; transform: none; }
+.r-wipe.in { clip-path: inset(0 0 0 0); transition: clip-path 1.4s cubic-bezier(.16,1,.3,1); }
+
+/* horizontal wipe — for wide hero frames */
+.r-wipeR { clip-path: inset(0 100% 0 0); opacity: 1; }
+.r-wipeR.in { clip-path: inset(0 0 0 0); transition: clip-path 1.5s cubic-bezier(.16,1,.3,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .r-wipe, .r-wipeR { transition: opacity .4s ease !important; clip-path: none !important; transform: none !important; filter: none !important; opacity: 0; }
+  .reveal.in { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────
+   PREMIUM IMAGE HOVER — light sweep + depth
+   (not a plain scale)
+───────────────────────────────────────── */
+.imgwrap { position: relative; overflow: hidden; }
+.imgwrap > img { transition: transform 1.6s cubic-bezier(.16,1,.3,1), filter 1.2s ease; }
+.imgwrap::before {
+  /* diagonal light sweep that passes across on hover */
+  content: ""; position: absolute; top: 0; left: -120%;
+  width: 80%; height: 100%; z-index: 3; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.13) 50%, transparent);
+  transform: skewX(-18deg);
+  transition: left .9s cubic-bezier(.16,1,.3,1);
+}
+.imgwrap:hover::before { left: 130%; }
+
+/* ─────────────────────────────────────────
+   STATEMENT
+───────────────────────────────────────── */
+.statement {
+  background: var(--black);
+  padding: clamp(100px,15vh,200px) clamp(20px,5vw,60px);
+}
+.statement .section-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px,7vw,100px); align-items: center;
+}
+.stmt__portrait {
+  position: relative; aspect-ratio: 3/4;
+  overflow: hidden; border-radius: 2px;
+}
+.stmt__portrait img {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: center 20%;
+  filter: contrast(1.06) saturate(.92);
+  transform: scale(1.02);
+  transition: transform 8s ease;
+}
+.stmt__portrait:hover img { transform: scale(1.06); }
+.stmt__portrait::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(150deg, rgba(9,8,6,0) 50%, rgba(9,8,6,.55) 100%);
+}
+.stmt__text { }
+.stmt__range {
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(20px,2.2vw,28px); line-height: 1.5;
+  color: var(--paper); margin-bottom: 32px;
+}
+.stmt__body {
+  font-size: clamp(14px,1.1vw,16.5px); line-height: 1.9;
+  color: var(--paper2); font-weight: 300;
+}
+.stmt__body p { margin-bottom: 18px; }
+.stmt__body p:last-child { color: var(--paper); margin-bottom: 0; }
+.stmt__sign {
+  margin-top: 44px; font-family: var(--display);
+  font-style: italic; font-size: 22px; color: var(--bronze);
+}
+.stmt__sign small {
+  display: block; font-family: var(--sans); font-style: normal;
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--muted); margin-top: 7px;
+}
+@media (max-width: 800px) {
+  .statement .section-inner { grid-template-columns: 1fr; gap: 50px; }
+  .stmt__portrait { max-width: 360px; margin: 0 auto; }
+}
+
+/* ─────────────────────────────────────────
+   CREDITS
+───────────────────────────────────────── */
+.credits {
+  background: var(--ink);
+  padding: clamp(80px,12vh,150px) clamp(20px,5vw,60px);
+  border-top: 1px solid rgba(201,164,92,.08);
+  border-bottom: 1px solid rgba(201,164,92,.08);
+}
+.credits__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2px; margin-top: 52px;
+}
+.cred {
+  padding: clamp(24px,3vw,36px);
+  background: var(--ink2);
+  transition: background .4s;
+  position: relative; overflow: hidden;
+}
+.cred::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: linear-gradient(var(--bronze), var(--bronze2));
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.cred:hover { background: var(--ink3); }
+.cred:hover::before { transform: scaleY(1); }
+.cred__year { font-size: 10px; letter-spacing: .25em; color: var(--muted); margin-bottom: 14px; }
+.cred__title {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(18px,2vw,24px); line-height: 1.1;
+  margin-bottom: 10px;
+}
+.cred__role { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--bronze); }
+.cred__note { margin-top: 10px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+.cred--active .cred__title { color: var(--paper); }
+.cred--active .cred__year { color: var(--bronze); }
+.credits__imdb {
+  margin-top: 48px; display: flex; align-items: center; gap: 14px;
+}
+.credits__imdb a {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #F5C518; color: #000;
+  font-size: 11px; font-weight: 700; letter-spacing: .05em;
+  padding: 8px 16px; border-radius: 2px;
+  transition: opacity .3s;
+}
+.credits__imdb a:hover { opacity: .85; }
+.credits__imdb span { font-size: 12px; color: var(--muted); }
+
+/* ─────────────────────────────────────────
+   SELECTED WORK
+───────────────────────────────────────── */
+.work {
+  background: var(--ink);
+  padding: clamp(90px,14vh,170px) clamp(20px,5vw,60px);
+}
+.work .section-inner > h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(36px,5vw,64px); line-height: 1;
+  margin-bottom: clamp(40px,6vh,72px);
+}
+.work__grid {
+  display: grid; gap: clamp(14px,1.6vw,20px);
+  grid-template-columns: repeat(12,1fr);
+}
+.card {
+  position: relative; overflow: hidden;
+  border-radius: 2px; background: var(--black);
+  cursor: pointer; display: block;
+}
+.card__media { position: absolute; inset: 0; }
+.card__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.04); filter: saturate(.88) brightness(.9);
+  transition: transform 1.6s cubic-bezier(.15,.7,.15,1), filter 1.4s ease;
+}
+.card:hover .card__media img { transform: scale(1.1); filter: saturate(1) brightness(.95); }
+.card__scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(9,8,6,.06) 0%, rgba(9,8,6,.15) 40%, rgba(9,8,6,.93) 100%);
+  transition: background .8s ease;
+}
+.card:hover .card__scrim { background: linear-gradient(180deg, rgba(9,8,6,.1) 0%, rgba(9,8,6,.35) 40%, rgba(9,8,6,.96) 100%); }
+.card__body {
+  position: relative; z-index: 2; height: 100%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(20px,3vw,40px);
+}
+.card__status { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--bronze); margin-bottom: 10px; }
+.card__title { font-family: var(--display); font-weight: 500; font-size: clamp(24px,2.8vw,38px); line-height: 1.05; }
+.card__genre { margin-top: 8px; font-size: 12px; letter-spacing: .06em; color: var(--paper2); font-weight: 300; }
+.card__cta {
+  margin-top: 16px; font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--paper);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.card:hover .card__cta { opacity: .85; transform: translateY(0); }
+.card--lead   { grid-column: span 7; aspect-ratio: 16/10; }
+.card--side   { grid-column: span 5; aspect-ratio: 16/10; }
+.card--mystery {
+  grid-column: span 7; aspect-ratio: 21/8;
+  background: radial-gradient(ellipse at 30% 0%, rgba(74,104,128,.1), rgba(9,8,6,0) 65%), var(--ink2);
+  border: 1px solid rgba(201,164,92,.1);
+}
+.card--bts { grid-column: span 5; aspect-ratio: 21/8; }
+@media (max-width: 860px) {
+  .card--lead, .card--side, .card--mystery, .card--bts { grid-column: span 12; aspect-ratio: 16/9; }
+}
+
+/* ─────────────────────────────────────────
+   IN PRODUCTION SECTION
+───────────────────────────────────────── */
+.inprod {
+  position: relative; overflow: hidden;
+  background: var(--black);
+  padding: clamp(90px,14vh,170px) clamp(20px,5vw,60px);
+}
+.inprod__bg {
+  position: absolute; inset: 0;
+  background: url('assets/directing-2.jpg') center 40% / cover no-repeat;
+  filter: brightness(.18) saturate(.6);
+  transform: scale(1.06);
+}
+.inprod__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(9,8,6,.97) 0%, rgba(9,8,6,.7) 55%, rgba(9,8,6,.97) 100%);
+}
+.inprod .section-inner { position: relative; z-index: 2; max-width: 680px; }
+.inprod__tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 9px; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--paper); margin-bottom: 32px;
+}
+.inprod__tag i {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: #e53; animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.4;transform:scale(.8);} 50%{opacity:1;transform:scale(1.2);} }
+.inprod h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(32px,5vw,58px); line-height: 1.08;
+  margin-bottom: 28px;
+}
+.inprod p { font-size: clamp(14px,1.1vw,17px); line-height: 1.85; color: var(--paper2); font-weight: 300; margin-bottom: 18px; }
+.inprod__detail {
+  margin-top: 40px; display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+}
+.inprod__detail dt {
+  grid-column: auto; padding: 14px 18px;
+  background: rgba(255,255,255,.04);
+  font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted);
+}
+.inprod__detail dd {
+  display: none; /* we put both in the dt for simplicity below */
+}
+.indot {
+  padding: 16px 20px; background: rgba(255,255,255,.04);
+  border-left: 1px solid rgba(201,164,92,.0);
+}
+.indot span { display: block; }
+.indot .k { font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.indot .v { font-size: 15px; color: var(--paper); font-weight: 300; }
+@media (max-width: 600px) { .inprod__detail { grid-template-columns: 1fr; } }
+
+/* ─────────────────────────────────────────
+   FOUNDATIONS / KGF
+───────────────────────────────────────── */
+.found {
+  position: relative; overflow: hidden;
+  padding: clamp(100px,15vh,200px) clamp(20px,5vw,60px);
+  background: var(--ink);
+}
+.found__bg {
+  position: absolute; inset: 0;
+  background: url('assets/kgf-fort.jpg') center 45% / cover no-repeat;
+  filter: grayscale(40%) sepia(20%) brightness(.35) contrast(1.1);
+  transform: scale(1.12);
+  will-change: transform;
+}
+.found__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(9,8,6,.97) 0%, rgba(9,8,6,.68) 45%, rgba(9,8,6,.95) 100%);
+}
+.found .section-inner { position: relative; z-index: 2; }
+.found__layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px,6vw,90px); align-items: start;
+  margin-top: 52px;
+}
+.found__copy h3 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(28px,3.5vw,46px); line-height: 1.1;
+  margin-bottom: 28px;
+}
+.found__copy p {
+  font-size: clamp(14px,1.1vw,16.5px); line-height: 1.9;
+  color: var(--paper2); font-weight: 300; margin-bottom: 18px;
+}
+.found__quote {
+  margin-top: 36px; padding: 22px 26px;
+  border-left: 2px solid rgba(201,164,92,.5);
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(16px,1.5vw,20px); line-height: 1.6; color: var(--bronze);
+}
+.found__images { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px,1.2vw,16px); }
+.found__img {
+  position: relative; overflow: hidden; border-radius: 2px;
+  aspect-ratio: 4/3;
+}
+.found__img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(20%) brightness(.82) contrast(1.05);
+  transform: scale(1.04);
+  transition: transform 1.4s ease, filter 1.2s ease;
+}
+.found__img:hover img { transform: scale(1.1); filter: grayscale(0%) brightness(.9); }
+.found__img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+.found__cap {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 12px 16px; font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--paper);
+  background: linear-gradient(transparent, rgba(9,8,6,.88));
+}
+@media (max-width: 860px) {
+  .found__layout { grid-template-columns: 1fr; }
+  .found__images { grid-template-columns: 1fr; }
+  .found__img:first-child { grid-column: span 1; }
+}
+
+/* ─────────────────────────────────────────
+   THE LAB / THE TREE
+───────────────────────────────────────── */
+.lab {
+  background: #0b0e11;
+  padding: clamp(100px,15vh,200px) clamp(20px,5vw,60px);
+}
+.lab .section-inner > .lab__intro {
+  max-width: 660px; margin-bottom: clamp(50px,7vh,90px);
+}
+.lab__intro h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(34px,5vw,62px); line-height: 1.05;
+  margin-bottom: 24px;
+}
+.lab__intro p { font-size: clamp(14px,1.1vw,16.5px); line-height: 1.85; color: var(--paper2); font-weight: 300; }
+/* Tree hero */
+.tree__hero {
+  position: relative; border-radius: 3px; overflow: hidden;
+  aspect-ratio: 21/9; cursor: pointer;
+  background: var(--ink);
+}
+.tree__hero img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 1.6s cubic-bezier(.15,.7,.15,1), filter 1.4s ease;
+  filter: saturate(.9);
+}
+.tree__hero:hover img { transform: scale(1.09); filter: saturate(1.04); }
+.tree__scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(9,8,6,.82) 0%, rgba(9,8,6,.2) 50%, rgba(9,8,6,.05) 100%);
+}
+.tree__play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.95);
+  z-index: 3; width: 76px; height: 76px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.45);
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(9,8,6,.32); color: #fff;
+  transition: background .5s, transform .5s, border-color .5s;
+}
+.tree__hero:hover .tree__play {
+  background: rgba(201,164,92,.88); border-color: var(--bronze);
+  transform: translate(-50%,-50%) scale(1.06);
+}
+.tree__play svg { width: 22px; height: 22px; fill: #fff; margin-left: 4px; }
+.tree__ids {
+  position: absolute; left: clamp(20px,3vw,44px);
+  bottom: clamp(24px,3vw,44px); z-index: 3;
+}
+.tree__ids .t {
+  font-family: var(--display); font-size: clamp(30px,4.5vw,56px);
+  font-weight: 500; letter-spacing: .04em; line-height: 1;
+}
+.tree__ids .l {
+  margin-top: 10px; font-family: var(--display); font-style: italic;
+  font-size: clamp(13px,1.4vw,18px); color: #c09090;
+}
+.tree__grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: clamp(10px,1.2vw,16px); margin-top: clamp(12px,1.4vw,18px);
+}
+.tree__cell { overflow: hidden; border-radius: 2px; aspect-ratio: 16/10; }
+.tree__cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 1.4s ease;
+}
+.tree__cell:hover img { transform: scale(1.1); }
+.tree__foot {
+  margin-top: 28px; font-size: 12px; line-height: 1.8;
+  color: var(--muted); font-style: italic; max-width: 640px;
+}
+@media (max-width: 760px) {
+  .tree__hero { aspect-ratio: 4/3; }
+  .tree__grid { grid-template-columns: 1fr; }
+}
+
+/* ─────────────────────────────────────────
+   ON SET — the working director
+───────────────────────────────────────── */
+.onset {
+  background: var(--ink);
+  padding: clamp(90px,14vh,170px) clamp(20px,5vw,60px);
+  border-top: 1px solid rgba(201,164,92,.08);
+}
+.onset__head { max-width: 640px; margin-bottom: clamp(44px,6vh,72px); }
+.onset__head h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(32px,5vw,58px); line-height: 1.06; margin-bottom: 20px;
+}
+.onset__head p { font-size: clamp(14px,1.1vw,16.5px); line-height: 1.85; color: var(--paper2); font-weight: 300; }
+.onset__grid {
+  display: grid; gap: clamp(12px,1.4vw,18px);
+  grid-template-columns: repeat(12, 1fr);
+}
+.frame {
+  position: relative; overflow: hidden; border-radius: 2px;
+  background: var(--black);
+}
+.frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(15%) brightness(.84) contrast(1.05);
+  transform: scale(1.04);
+  transition: transform 1.5s cubic-bezier(.15,.7,.15,1), filter 1.3s ease;
+}
+.frame:hover img { transform: scale(1.1); filter: grayscale(0%) brightness(.96); }
+.frame__cap {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 16px clamp(14px,2vw,22px);
+  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--paper);
+  background: linear-gradient(transparent, rgba(9,8,6,.9));
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.frame:hover .frame__cap { opacity: 1; transform: translateY(0); }
+.frame--a { grid-column: span 7; aspect-ratio: 3/2; }
+.frame--b { grid-column: span 5; aspect-ratio: 3/2; }
+.frame--c { grid-column: span 4; aspect-ratio: 4/5; }
+.frame--d { grid-column: span 4; aspect-ratio: 4/5; }
+.frame--e { grid-column: span 4; aspect-ratio: 4/5; }
+@media (max-width: 820px) {
+  .frame--a, .frame--b { grid-column: span 12; aspect-ratio: 16/10; }
+  .frame--c, .frame--d, .frame--e { grid-column: span 12; aspect-ratio: 16/10; }
+}
+
+/* ─────────────────────────────────────────
+   TIMELINE — filmography, not company history
+───────────────────────────────────────── */
+.timeline {
+  position: relative; overflow: hidden;
+  background: var(--black);
+  padding: clamp(100px,15vh,190px) clamp(20px,5vw,60px);
+}
+.timeline__head { max-width: 640px; margin-bottom: clamp(50px,7vh,80px); }
+.timeline__head h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(32px,5vw,58px); line-height: 1.06;
+}
+.tl {
+  position: relative; max-width: 880px; margin: 0 auto;
+}
+.tl::before {
+  content: ""; position: absolute;
+  left: 0; top: 6px; bottom: 6px; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(201,164,92,.4) 12%, rgba(201,164,92,.4) 88%, transparent);
+}
+.tl__row {
+  position: relative; display: grid;
+  grid-template-columns: 140px 1fr; gap: clamp(24px,4vw,60px);
+  padding: clamp(26px,4vh,44px) 0 clamp(26px,4vh,44px) 32px;
+}
+.tl__row::before {
+  content: ""; position: absolute; left: -4px; top: calc(clamp(26px,4vh,44px) + 6px);
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bronze);
+  box-shadow: 0 0 0 4px rgba(201,164,92,.12);
+}
+.tl__row--now::before {
+  background: #e53;
+  box-shadow: 0 0 0 4px rgba(238,85,51,.18);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.tl__year {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(17px,1.7vw,21px); color: var(--bronze);
+  letter-spacing: .02em; line-height: 1.3; padding-top: 1px;
+}
+.tl__body h3 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(19px,2vw,26px); line-height: 1.15; margin-bottom: 8px;
+}
+.tl__body p { font-size: clamp(13px,1.05vw,15.5px); line-height: 1.75; color: var(--paper2); font-weight: 300; }
+.tl__tag {
+  display: inline-block; margin-top: 12px;
+  font-size: 9px; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--paper); padding: 4px 11px;
+  border: 1px solid rgba(201,164,92,.3); border-radius: 2px;
+}
+@media (max-width: 640px) {
+  .tl__row { grid-template-columns: 1fr; gap: 6px; padding-left: 28px; }
+  .tl__year { margin-bottom: 2px; }
+}
+
+/* ─────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────── */
+.contact {
+  background: var(--black);
+  padding: clamp(100px,16vh,200px) clamp(20px,5vw,60px) clamp(60px,8vh,100px);
+  text-align: center;
+  border-top: 1px solid rgba(201,164,92,.06);
+}
+.contact .section-inner {}
+.contact h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(32px,5.5vw,64px); line-height: 1.08;
+  margin-bottom: 22px;
+}
+.contact p.lead {
+  max-width: 520px; margin: 0 auto 44px;
+  color: var(--paper2); font-weight: 300;
+  line-height: 1.85; font-size: clamp(14px,1.1vw,16px);
+}
+.contact__mail {
+  font-family: var(--display); font-size: clamp(20px,2.6vw,32px);
+  color: var(--bronze);
+  border-bottom: 1px solid rgba(201,164,92,.3);
+  padding-bottom: 4px; transition: border-color .4s, color .3s;
+}
+.contact__mail:hover { border-color: var(--bronze); color: var(--paper); }
+.contact__row {
+  margin-top: 48px; display: flex;
+  justify-content: center; align-items: center;
+  gap: 32px; flex-wrap: wrap;
+}
+.contact__row a {
+  font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--muted);
+  transition: color .3s;
+}
+.contact__row a:hover { color: var(--paper); }
+.contact__row .sep { width: 1px; height: 14px; background: rgba(255,255,255,.1); }
+.contact__imdb {
+  background: #F5C518; color: #000 !important;
+  font-weight: 700; padding: 6px 14px; border-radius: 2px;
+  letter-spacing: .05em !important; color: #000;
+}
+.foot {
+  margin-top: 72px; font-size: 9px; letter-spacing: .22em;
+  text-transform: uppercase; color: #352f28;
+}
+
+/* ─────────────────────────────────────────
+   VIDEO LIGHTBOX
+───────────────────────────────────────── */
+.lb {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(4,3,3,.94); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 24px; opacity: 0; transition: opacity .4s;
+}
+.lb.open { display: flex; }
+.lb.vis  { opacity: 1; }
+.lb__wrap { position: relative; width: min(960px,100%); aspect-ratio: 16/9; }
+.lb__wrap iframe { width: 100%; height: 100%; border: 0; border-radius: 3px; }
+.lb__close {
+  position: absolute; top: -42px; right: 0;
+  font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--paper2); cursor: pointer; transition: color .3s;
+}
+.lb__close:hover { color: var(--paper); }
+</style>
+</head>
+<body>
+
+<!-- CINEMATIC LENS OVERLAY -->
+<div class="lens"></div>
+
+<!-- NAV ─────────────────────────────── -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__brand">VIRAAT</a>
+  <div class="nav__links">
+    <a href="#work">Work</a>
+    <a href="#production">In Production</a>
+    <a href="#timeline">Path</a>
+    <a href="#lab">The Lab</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.imdb.com/name/nm18569819/" target="_blank" rel="noopener" class="nav__imdb">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14.31 9.588v.005c-.077-.048-1.62-.24-1.62-.24v5.303s1.543-.193 1.62-.24c.396-.24.396-.887.396-2.41 0-1.523 0-2.17-.396-2.418zM0 2v20h24V2H0zm5.344 14.66H3.35v-9.32h1.994v9.32zm4.55 0H7.91v-9.32h1.98V9.2l.905-1.86H12.8l-1.18 2.333 1.177 2.334H10.8l-.906-1.86v6.413zm8.099-.748c-.462.748-1.39.748-1.39.748h-2.15v-9.32h2.15s.928 0 1.39.748c.462.745.462 3.162.462 3.912s0 3.167-.462 3.912z"/></svg>
+      IMDb
+    </a>
+    <a href="https://www.instagram.com/viraat_r455/" target="_blank" rel="noopener" class="nav__ig" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO ────────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero__layer hero__bgfar" data-depth="0.12" id="heroFar"></div>
+  <div class="hero__layer hero__portrait" data-depth="0.28" id="heroPortrait"></div>
+  <div class="hero__grade"></div>
+  <div class="hero__haze" data-depth="0.5" id="heroHaze"></div>
+  <div class="hero__content">
+    <p class="hero__kicker">Film Director &middot; Screenwriter &middot; World Builder</p>
+    <h1 class="hero__name">VIRAAT</h1>
+    <p class="hero__line">I build worlds. Stories find their way through them.</p>
+    <p class="hero__sub">Mithilesh Gowda R. &nbsp;&middot;&nbsp; Bengaluru, India</p>
+  </div>
+  <div class="scrollcue"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- STATEMENT ───────────────────────── -->
+<section class="statement">
+  <div class="section-inner">
+    <div class="stmt__portrait reveal r-wipe imgwrap">
+      <img src="assets/statement-portrait.jpg" alt="Viraat — director on set">
+    </div>
+    <div class="stmt__text reveal r-rise">
+      <span class="eyebrow">The Filmmaker</span>
+      <p class="stmt__range">From mythology and action to horror and human drama — stories driven by emotion, consequence, and cinematic imagination.</p>
+      <div class="stmt__body">
+        <p>I am a filmmaker drawn to stories that leave a lasting impression — whether through action, mythology, horror, or deeply human experience.</p>
+        <p>My work explores the choices people make, the worlds they inhabit, and the consequences that shape their lives. From large-scale cinematic spectacle to intimate character-driven narrative, I make films that entertain, provoke thought, and stay with an audience long after the credits roll.</p>
+        <p>For me, filmmaking is not only about telling stories. It is about building worlds that feel alive, meaningful, and unforgettable.</p>
+      </div>
+      <p class="stmt__sign">Viraat<small>Mithilesh Gowda R.</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- CREDITS ─────────────────────────── -->
+<section class="credits" id="credits">
+  <div class="section-inner">
+    <span class="eyebrow">Selected Credits</span>
+    <div class="credits__grid">
+      <div class="cred cred--active reveal r-stack">
+        <p class="cred__year">2026 &nbsp;·&nbsp; In Production</p>
+        <h3 class="cred__title">Untitled Telugu Feature Film</h3>
+        <p class="cred__role">Writer &middot; Director</p>
+        <p class="cred__note">Feature film currently in active production.</p>
+      </div>
+      <div class="cred reveal r-stack">
+        <p class="cred__year">2026</p>
+        <h3 class="cred__title">HASTHI</h3>
+        <p class="cred__role">Writer &middot; Director</p>
+        <p class="cred__note">Horror proof-of-concept showreel. Listed on IMDb.</p>
+      </div>
+      <div class="cred reveal r-stack">
+        <p class="cred__year">2017 – 2022</p>
+        <h3 class="cred__title">KGF Chapter 2</h3>
+        <p class="cred__role">Direction Department &middot; Assistant Director</p>
+        <p class="cred__note">One of Indian cinema's largest productions under director Prashanth Neel.</p>
+      </div>
+    </div>
+    <div class="credits__imdb reveal">
+      <a href="https://www.imdb.com/name/nm18569819/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14.31 9.588v.005c-.077-.048-1.62-.24-1.62-.24v5.303s1.543-.193 1.62-.24c.396-.24.396-.887.396-2.41 0-1.523 0-2.17-.396-2.418zM0 2v20h24V2H0zm5.344 14.66H3.35v-9.32h1.994v9.32zm4.55 0H7.91v-9.32h1.98V9.2l.905-1.86H12.8l-1.18 2.333 1.177 2.334H10.8l-.906-1.86v6.413zm8.099-.748c-.462.748-1.39.748-1.39.748h-2.15v-9.32h2.15s.928 0 1.39.748c.462.745.462 3.162.462 3.912s0 3.167-.462 3.912z"/></svg>
+        View IMDb Profile
+      </a>
+      <span>All credits verified on IMDb &middot; nm18569819</span>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED WORK ───────────────────── -->
+<section class="work" id="work">
+  <div class="section-inner">
+    <span class="eyebrow">Selected Work</span>
+    <h2 class="reveal">The Slate</h2>
+    <div class="work__grid">
+      <a class="card card--lead reveal" href="#" data-vid="cEL5mO55fos">
+        <div class="card__media"><img src="assets/hasthi-poster.jpg" alt="Hasthi"></div>
+        <div class="card__scrim"></div>
+        <div class="card__body">
+          <p class="card__status">Horror &middot; Proof of Concept &middot; 2026</p>
+          <h3 class="card__title">HASTHI</h3>
+          <p class="card__genre">Atmosphere, folklore, dread.</p>
+          <p class="card__cta">Play teaser &rarr;</p>
+        </div>
+      </a>
+      <a class="card card--side reveal" href="#production">
+        <div class="card__media"><img src="assets/directing-scale.jpg" alt="On set"></div>
+        <div class="card__scrim"></div>
+        <div class="card__body">
+          <p class="card__status">Telugu Feature &middot; In Production</p>
+          <h3 class="card__title">Action Drama</h3>
+          <p class="card__genre">Title under wraps. Currently shooting.</p>
+          <p class="card__cta">More &rarr;</p>
+        </div>
+      </a>
+      <div class="card card--mystery reveal">
+        <div class="card__body">
+          <p class="card__status">Original Feature &middot; In Development</p>
+          <h3 class="card__title">Untitled Action Feature</h3>
+          <p style="margin-top:12px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)">Details withheld</p>
+        </div>
+      </div>
+      <a class="card card--bts reveal" href="#lab" data-vid="BgWzRpDE8Ss">
+        <div class="card__media"><img src="assets/tree-poster.jpg" alt="The Tree"></div>
+        <div class="card__scrim"></div>
+        <div class="card__body">
+          <p class="card__status">Horror Feature &middot; In Development</p>
+          <h3 class="card__title" style="font-size:clamp(18px,2vw,26px)">THE TREE</h3>
+          <p class="card__cta">View the world &rarr;</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- IN PRODUCTION ───────────────────── -->
+<section class="inprod" id="production">
+  <div class="inprod__bg"></div>
+  <div class="inprod__veil"></div>
+  <div class="section-inner">
+    <div class="reveal r-dark">
+      <p class="inprod__tag"><i></i>Currently in Production</p>
+      <h2>An untitled Telugu action drama.</h2>
+      <p>A feature film in active production — genre, scale, and story remain confidential until official announcement. What can be said: this is the debut theatrical feature, built over years of preparation, now being made.</p>
+      <p>Details will be announced when the time is right.</p>
+      <div class="inprod__detail">
+        <div class="indot"><span class="k">Format</span><span class="v">Feature Film</span></div>
+        <div class="indot"><span class="k">Language</span><span class="v">Telugu</span></div>
+        <div class="indot"><span class="k">Status</span><span class="v">In Production</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ON SET — working director ───────── -->
+<section class="onset" id="onset">
+  <div class="section-inner">
+    <div class="onset__head reveal">
+      <span class="eyebrow">On Set</span>
+      <h2>A director, at work.</h2>
+      <p>Directing is decisions — blocking a shot, reading a monitor, shaping a performance, holding a set of dozens to a single vision. These are frames from active production.</p>
+    </div>
+    <div class="onset__grid">
+      <div class="frame frame--a reveal r-wipe imgwrap">
+        <img src="assets/bts-1.jpg" alt="Viraat blocking a shot on set">
+        <p class="frame__cap">Blocking the shot &middot; On location</p>
+      </div>
+      <div class="frame frame--b reveal r-wipe imgwrap">
+        <img src="assets/bts-4.jpg" alt="Viraat directing on set">
+        <p class="frame__cap">Directing the scene</p>
+      </div>
+      <div class="frame frame--c reveal imgwrap">
+        <img src="assets/bts-2.jpg" alt="Shot discussion with crew">
+        <p class="frame__cap">Shot discussion &middot; With crew</p>
+      </div>
+      <div class="frame frame--d reveal imgwrap">
+        <img src="assets/bts-5.jpg" alt="Reviewing the scene with the team">
+        <p class="frame__cap">Reviewing the take</p>
+      </div>
+      <div class="frame frame--e reveal imgwrap">
+        <img src="assets/bts-3.jpg" alt="On a large production set">
+        <p class="frame__cap">On the floor &middot; Scale</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDATIONS / KGF ───────────────── -->
+<section class="found" id="foundations">
+  <div class="found__bg"></div>
+  <div class="found__veil"></div>
+  <div class="section-inner">
+    <span class="eyebrow">Foundations</span>
+    <div class="found__layout">
+      <div class="found__copy reveal">
+        <h3>Trained inside the machine.</h3>
+        <p>Before directing my own films, I learned how worlds are built at scale — inside one of the largest productions Indian cinema has ever mounted. Five years on KGF Chapter 2 placed me close to the parts most first-time directors never see until their own first budget.</p>
+        <p>How a set of hundreds is run. How action and VFX are scheduled in the same breath. How discipline holds a frame when the canvas is the size of a city. How a director's clarity — or absence of it — ripples through every department by 6am.</p>
+        <p>It shaped how I work. Ambition without control is noise. The bigger the vision, the quieter and more exact the execution must be.</p>
+        <blockquote class="found__quote">Working under director Prashanth Neel on KGF Chapter 2 taught me that scale is a discipline, not a resource.</blockquote>
+      </div>
+      <div class="found__images reveal">
+        <div class="found__img">
+          <img src="assets/kgf-fort.jpg" alt="KGF Chapter 2 production — set at scale">
+          <p class="found__cap">KGF Chapter 2 &middot; Production scale</p>
+        </div>
+        <div class="found__img">
+          <img src="assets/kgf-crane.jpg" alt="Heavy production rigging">
+          <p class="found__cap">Heavy production &middot; Craft at scale</p>
+        </div>
+        <div class="found__img">
+          <img src="assets/viraat-crowd.jpg" alt="Viraat directing a large group">
+          <p class="found__cap">Leadership &middot; On the floor</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE ────────────────────────── -->
+<section class="timeline" id="timeline">
+  <div class="timeline__head reveal">
+    <span class="eyebrow">The Path</span>
+    <h2>From the machine to the chair.</h2>
+  </div>
+  <div class="tl">
+    <div class="tl__row reveal r-card">
+      <div class="tl__year">2016</div>
+      <div class="tl__body">
+        <h3>Into the industry</h3>
+        <p>Entered the film industry and joined the KGF Chapter 2 journey in the Direction Department.</p>
+      </div>
+    </div>
+    <div class="tl__row reveal r-card">
+      <div class="tl__year">2016 – 2022</div>
+      <div class="tl__body">
+        <h3>KGF Chapter 2</h3>
+        <p>Worked across one of Indian cinema's largest productions, gaining large-scale production experience as an assistant director under Prashanth Neel.</p>
+      </div>
+    </div>
+    <div class="tl__row reveal r-card">
+      <div class="tl__year">2021</div>
+      <div class="tl__body">
+        <h3>HASTHI</h3>
+        <p>Wrote and directed HASTHI — an original horror proof-of-concept. Listed on IMDb.</p>
+      </div>
+    </div>
+    <div class="tl__row reveal r-card">
+      <div class="tl__year">2023 – Present</div>
+      <div class="tl__body">
+        <h3>Original worlds</h3>
+        <p>Developing original films and screenplays — including THE TREE and other feature concepts — built through story design and AI-assisted previsualization.</p>
+      </div>
+    </div>
+    <div class="tl__row tl__row--now reveal r-card">
+      <div class="tl__year">Present</div>
+      <div class="tl__body">
+        <h3>First feature, in production</h3>
+        <p>Directing an untitled Telugu action drama feature film, currently in active production.</p>
+        <span class="tl__tag">Now Filming</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE LAB / THE TREE ──────────────── -->
+<section class="lab" id="lab">
+  <div class="section-inner">
+    <div class="lab__intro reveal">
+      <span class="eyebrow">The Lab &middot; Story Development &amp; AI Cinema</span>
+      <h2>Worlds, before the camera rolls.</h2>
+      <p>This is where a story becomes a world. Research, mythology, character, tone — developed through AI-assisted previsualization until a film can be fully seen long before it is shot. <em>The Tree</em> is the first project built this way, from a real observation into a complete cinematic world.</p>
+    </div>
+    <div class="tree__hero reveal r-wipeR imgwrap" data-vid="BgWzRpDE8Ss">
+      <img src="assets/tree-poster.jpg" alt="The Tree — concept poster">
+      <div class="tree__scrim"></div>
+      <div class="tree__play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="tree__ids">
+        <div class="t">THE TREE</div>
+        <div class="l">The land takes back what is owed.</div>
+      </div>
+    </div>
+    <div class="tree__grid">
+      <div class="tree__cell reveal"><img src="assets/tree-ramesh.jpg" alt="The Tree — Ramesh concept"></div>
+      <div class="tree__cell reveal"><img src="assets/tree-family.jpg" alt="The Tree — family concept"></div>
+      <div class="tree__cell reveal"><img src="assets/tree-wide.jpg" alt="The Tree — world concept"></div>
+    </div>
+    <p class="tree__foot reveal">AI-generated previsualization and world-building. All concept imagery developed by Viraat as part of the story development process — not a substitute for production design, but a new language for pitching original IP.</p>
+  </div>
+</section>
+
+<!-- CONTACT ─────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="eyebrow">Inquiries</span>
+      <h2>For producers, studios &amp; collaborators.</h2>
+      <p class="lead">For scripts in development, collaboration, or representation — the door is open to those building something worth remembering.</p>
+      <a class="contact__mail" href="mailto:viraat5gowda@gmail.com">viraat5gowda@gmail.com</a>
+      <div class="contact__row">
+        <a href="https://youtu.be/WHEOOzDfoSQ" target="_blank" rel="noopener">Hasthi Showreel</a>
+        <span class="sep"></span>
+        <a href="https://www.imdb.com/name/nm18569819/" target="_blank" rel="noopener" class="contact__imdb">IMDb Profile</a>
+        <span class="sep"></span>
+        <a href="https://www.instagram.com/viraat_r455/" target="_blank" rel="noopener">Instagram</a>
+        <span class="sep"></span>
+        <a href="https://www.imdb.com/title/tt43338728/" target="_blank" rel="noopener">Hasthi on IMDb</a>
+      </div>
+      <p class="foot">VIRAAT &nbsp;&middot;&nbsp; Mithilesh Gowda R. &nbsp;&middot;&nbsp; Bengaluru, Karnataka, India &nbsp;&middot;&nbsp; &copy; 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO LIGHTBOX ──────────────────── -->
+<div class="lb" id="lb">
+  <div class="lb__wrap">
+    <span class="lb__close" id="lbClose">&times; &nbsp;Close</span>
+    <iframe id="lbIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Cinematic reveals (differentiated + sequential where needed) ── */
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var el = e.target;
+          // sequential stagger for grouped rows/cards
+          var group = el.closest('.tl, .credits__grid, .work__grid, .onset__grid, .tree__grid');
+          if (group) {
+            var sibs = group.querySelectorAll('.reveal');
+            var pos = Array.prototype.indexOf.call(sibs, el);
+            el.style.transitionDelay = (pos * 0.14) + 's';
+          }
+          el.classList.add('in');
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('in'); });
+  }
+  setTimeout(function () { items.forEach(function (el) { el.classList.add('in'); }); }, 3000);
+
+  /* ── Nav ── */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 70) { nav.classList.add('solid'); }
+    else { nav.classList.remove('solid'); }
+  }, { passive: true });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Multi-layer hero parallax (GPU, rAF-throttled) ── */
+  var layers = [];
+  ['heroFar','heroPortrait','heroHaze'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) layers.push({ el: el, depth: parseFloat(el.getAttribute('data-depth')) || 0.2 });
+  });
+  if (layers.length && !reduceMotion) {
+    var hTicking = false;
+    window.addEventListener('scroll', function () {
+      if (!hTicking) {
+        window.requestAnimationFrame(function () {
+          var y = window.scrollY;
+          if (y < window.innerHeight * 1.1) {
+            layers.forEach(function (L) {
+              L.el.style.transform = 'translate3d(0,' + (y * L.depth) + 'px,0) scale(' + (L.el.classList.contains('hero__bgfar') ? 1.25 : 1.1) + ')';
+            });
+          }
+          hTicking = false;
+        });
+        hTicking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ── Section depth parallax — subtle drift on backgrounds ── */
+  var driftEls = document.querySelectorAll('.found__bg, .inprod__bg');
+  if (driftEls.length && !reduceMotion) {
+    var dTicking = false;
+    window.addEventListener('scroll', function () {
+      if (!dTicking) {
+        window.requestAnimationFrame(function () {
+          driftEls.forEach(function (el) {
+            var r = el.parentElement.getBoundingClientRect();
+            var prog = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+            if (prog > 0 && prog < 1) {
+              el.style.transform = 'scale(1.12) translateY(' + ((prog - 0.5) * 40) + 'px)';
+            }
+          });
+          dTicking = false;
+        });
+        dTicking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ── Video Lightbox ── */
+  var lb = document.getElementById('lb');
+  var lbIframe = document.getElementById('lbIframe');
+  var lbClose = document.getElementById('lbClose');
+
+  function openVideo(id) {
+    lbIframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+    lb.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () { lb.classList.add('vis'); });
+  }
+  function closeVideo() {
+    lb.classList.remove('vis');
+    document.body.style.overflow = '';
+    setTimeout(function () { lb.style.display = 'none'; lbIframe.src = ''; }, 420);
+  }
+
+  document.querySelectorAll('[data-vid]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      openVideo(el.getAttribute('data-vid'));
+    });
+  });
+  lbClose.addEventListener('click', closeVideo);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeVideo(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeVideo(); });
+
+})();
+</script>
+</body>
+</html>
