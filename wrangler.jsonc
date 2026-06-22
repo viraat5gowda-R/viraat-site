@@ -6,7 +6,7 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": "./rapture-v5/out"
   },
   "compatibility_flags": [
     "nodejs_compat"
