@@ -1,0 +1,7 @@
+{
+  "name": "viraat-site",
+  "private": true,
+  "scripts": {
+    "build": "cd rapture-v5 && npm install && npm run build"
+  }
+}
