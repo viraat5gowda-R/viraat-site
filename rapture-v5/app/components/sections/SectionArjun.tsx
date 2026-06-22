@@ -8,11 +8,9 @@ export default function SectionArjun({ id }: { id: string }) {
       <div style={{ maxWidth: 540, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: 'inherit' }}>
 
         <motion.div {...fadeUp} whileInView={fadeUp.animate} viewport={viewportConfig} style={{ width: '100%', borderRadius: 18, overflow: 'hidden', border: '1px solid var(--line)', marginBottom: 28, aspectRatio: '3/4', maxWidth: 320, background: 'linear-gradient(135deg, rgba(217,138,74,0.1), rgba(10,12,14,0.9))' }}>
-          <img src="/arjun_hero.jpg" alt="Arjun" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
-            onError={(e) => {
-              const img = e.target as HTMLImageElement
-              img.src = '/arjun_face.jpg'
-            }} />
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, color: 'rgba(217,138,74,0.5)', letterSpacing: '0.08em' }}>Image coming soon</span>
+          </div>
         </motion.div>
 
         <motion.span {...stagger(0.1)} whileInView={stagger(0.1).animate} viewport={viewportConfig} style={{ fontSize: 12, color: '#cfc9bf', border: '1px solid var(--line)', padding: '5px 10px', borderRadius: 999, display: 'inline-block', marginBottom: 16 }}>

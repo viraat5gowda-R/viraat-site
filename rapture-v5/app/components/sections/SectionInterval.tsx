@@ -8,10 +8,9 @@ export default function SectionInterval({ id }: { id: string }) {
       {/* Background image */}
       <div style={{ position: 'absolute', inset: 0 }}>
         <img
-          src="/lamp_water.jpg"
+          src="/kgf_aerial.jpg"
           alt=""
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          onError={(e) => { (e.target as HTMLImageElement).src = '/world_harbour_dark.jpg' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 40%', display: 'block', filter: 'brightness(0.3) saturate(0.5)' }}
         />
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,12,14,0.76)' }} />
       </div>

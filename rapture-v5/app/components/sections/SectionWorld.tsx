@@ -10,7 +10,7 @@ export default function SectionWorld({ id }: { id: string }) {
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 60% 40% at 80% 20%, rgba(94,125,147,0.06) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(217,138,74,0.05) 0%, transparent 70%)' }} />
 
         <motion.div {...fadeUp} whileInView={fadeUp.animate} viewport={viewportConfig} style={{ width: '100%', borderRadius: 18, overflow: 'hidden', border: '1px solid var(--line)', marginBottom: 32, aspectRatio: '16/9' }}>
-          <img src="/world_harbour.jpg" alt="Rudravaram harbour" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src="/kgf_aerial.jpg" alt="Rudravaram harbour" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         </motion.div>
 
         <motion.p {...stagger(0.1)} whileInView={stagger(0.1).animate} viewport={viewportConfig} style={{ fontFamily: 'var(--sans)', fontSize: 11.5, letterSpacing: '0.34em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 500, marginBottom: 18 }}>

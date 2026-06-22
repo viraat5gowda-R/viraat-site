@@ -13,8 +13,7 @@ export default function SectionDrug({ id }: { id: string }) {
         </div>
 
         <motion.div {...fadeUp} whileInView={fadeUp.animate} viewport={viewportConfig} style={{ width: '100%', borderRadius: 18, overflow: 'hidden', border: '1px solid var(--line)', marginBottom: 32, aspectRatio: '16/9' }}>
-          <img src="/rapture_atmosphere.jpg" alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-            onError={(e) => { (e.target as HTMLImageElement).src = '/world_harbour_dark.jpg' }} />
+          <img src="/kgf_aerial.jpg" alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 60%', display: 'block', filter: 'brightness(0.45) saturate(0.6)' }} />
         </motion.div>
 
         <motion.p {...stagger(0.1)} whileInView={stagger(0.1).animate} viewport={viewportConfig} style={{ fontFamily: 'var(--sans)', fontSize: 11.5, letterSpacing: '0.34em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 500, marginBottom: 18 }}>

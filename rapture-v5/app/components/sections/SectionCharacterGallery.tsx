@@ -8,7 +8,7 @@ const characters = [
     name: 'Arjun',
     identity: 'The man the town relies on and never records.',
     dot: 'var(--warm)',
-    src: '/arjun_face.jpg',
+    src: '',
     pos: 'center top',
   },
   {
@@ -16,7 +16,7 @@ const characters = [
     name: 'Meera',
     identity: 'She finds missing people. She is here for her brother.',
     dot: 'var(--cold)',
-    src: '/meera_close.jpg',
+    src: '',
     pos: 'center center',
   },
   {
@@ -24,7 +24,7 @@ const characters = [
     name: 'Vikram',
     identity: 'The most trusted man in Rudravaram. The town\'s anchor.',
     dot: '#b8914a',
-    src: '/vikram_close.jpg',
+    src: '/vikram_portrait.jpg',
     pos: 'center top',
   },
   {
@@ -32,7 +32,7 @@ const characters = [
     name: 'Janga',
     identity: 'The visible king. The room organises itself around him.',
     dot: '#c4b48a',
-    src: '/janga_close.jpg',
+    src: '',
     pos: 'center top',
   },
 ]
